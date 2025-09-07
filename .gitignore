@@ -1,16 +1,29 @@
-﻿# Java/Maven
-target/
+﻿# Maven target directory
+/target/
+
+# IntelliJ IDEA project files
 .idea/
 *.iml
-*.class
-*.log
-hs_err_pid*
-.mvn/wrapper/maven-wrapper.jar
+out/
 
-# OS
+# Eclipse project files
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS-specific files
 .DS_Store
 Thumbs.db
 
-# Reports/artifacts (kept by CI as artifacts only)
-allure-results/
-allure-report/
+# Reports
+/extent-output/
+/test-output/
+
+# Environment configs
+/*.env
