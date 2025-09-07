@@ -1,9 +1,8 @@
 ﻿name: Report Pages
 
 on:
-  workflow_run:
-    workflows: [ "CI" ]
-    types: [ completed ]
+  push:
+    branches: [ "main" ]
 
 permissions:
   pages: write
@@ -15,8 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-report:
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure' }}
+  test-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,7 +27,7 @@ jobs:
           java-version: "17"
           cache: maven
 
-      - name: Build & Test (chrome only)
+      - name: Build & Test (chrome headless)
         run: mvn -B -U clean test -Denv=config -Dbrowser=chrome -Dheadless=true
 
       - name: Prepare Pages content
@@ -46,13 +44,6 @@ jobs:
         with:
           path: public
 
-  deploy:
-    needs: build-report
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
