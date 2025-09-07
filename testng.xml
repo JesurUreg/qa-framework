@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="QA Framework Suite" verbose="1" parallel="classes" thread-count="2">
+  <listeners>
+    <listener class-name="com.example.framework.utils.ExtentTestListener"/>
+    <listener class-name="com.example.framework.utils.RetryTransformer"/>
+  </listeners>
+  <test name="All Tests">
+    <packages>
+      <package name="com.example.framework.tests"/>
+    </packages>
+  </test>
+</suite>

@@ -1,0 +1,16 @@
+﻿# Java/Maven
+target/
+.idea/
+*.iml
+*.class
+*.log
+hs_err_pid*
+.mvn/wrapper/maven-wrapper.jar
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports/artifacts (kept by CI as artifacts only)
+allure-results/
+allure-report/

@@ -1,0 +1,25 @@
+name: Java Selenium CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, firefox]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      - name: Run tests
+        run: mvn -B -Denv=config test -Dtestng.listeners.default=false -Dsurefire.suiteXmlFiles=testng.xml -DskipTests=false
+        env:
+          BROWSER: ${{ matrix.browser }}
+      - name: Upload Extent report
+        uses: actions/upload-artifact@v4
+        with:
+          name: extent-${{ matrix.browser }}
+          path: target/extent
